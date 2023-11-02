@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'base/responsive.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        {% include "navbar.html" %}
+
+        {% block content %}
+        
+        {% endblock content %}
+
+    </div> 
+    <script src="{% static 'base/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'base/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'base/js/active.js' %}"></script>
+    <script src="{% static "base/js/jquery-3.1.1.min.js" %}"></script>
+    <script src="{% static "base/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "base/js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "base/js/isotope.pkgd.js" %}"></script>
+    <script src="{% static "base/js/active.js" %}"></script>
+</body>
+</html>

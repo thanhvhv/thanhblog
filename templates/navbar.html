@@ -1,0 +1,28 @@
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="logo">
+                    {% if user.is_authenticated %}
+                    <h2><a href="{% url "logout" %}">Logout</a></h2>
+                    {% else %}
+                    <h2><a href="{% url "login" %}">Login</a></h2>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="menu">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        {% if check_author == 1%}
+                        <li><a href="{% url "create-blog" %}">Create Blog</a></li>
+                        {% endif %}
+                        {% if check_client == 1%}
+                        <li><a href="{% url "my-vocabulary" %}">My Vocab</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
