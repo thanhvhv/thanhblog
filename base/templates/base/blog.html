@@ -1,0 +1,93 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+{% load static %}
+<style>
+    .affix {
+      top: 20px;
+      margin-right: 20px;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+      $('.nav').affix({offset: {top: 205} }); 
+    });
+</script>
+
+<section class="single-blog-area">
+    <div class="container">
+        <div class="row">
+           <div class="col-md-12">
+            <div class="border-top">
+                <div class="col-md-9">
+                <div class="blog-area">
+                    {% if check_author == 1 %}
+                    <a href="{% url "update-blog" blog.id %}" class="btn btn-info" role="button">Update</a>
+                    <a href="{% url "create-word" blog.id %}" class="btn btn-info" role="button">Create Word</a>
+                    {% endif %}
+                    <div class="blog-area-part">
+                        <h2>{{blog.title}}</h2>
+                        {{blog.content|safe}}
+                    </div>
+                    <div class="ads-area">
+                        <img src="{% static "base/img/ads.jpg"%}" alt="">
+                        <p>Your Ad Banner Goes Here</p>
+                    </div>
+                    <div class="commententries">
+                        <h3>Comments</h3>
+
+                        <ul class="commentlist">
+                            {% for comment in comments %}
+                            <li>
+                                <article class="comment">
+                                    <header class="comment-author">
+                                        <img src="{% static "base/img/author-1.jpg"%}" alt="">
+                                    </header>
+                                    <section class="comment-details">
+                                        <div class="author-name">
+                                            <h5><a href="#">{{comment.user.first_name}} {{comment.user.last_name}}</a></h5>
+                                            <p>{{comment.created|timesince}} ago</p>
+                                        </div>
+                                        <div class="comment-body">
+                                            <p>{{comment.content}}</p>
+                                        </div>
+                                    </section>
+                                </article> 
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="comment">
+                            <input type="text" name="comment" id="" placeholder="Comment" class="comment">
+                        </div>
+                        <div class="post">
+                            <input type="submit" value="Post">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <form action="" method="get">
+                    <input type="search" name="word" placeholder="Enter Word">
+                    <input type="submit" value="Search">
+                </form>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}         
+                {% include "base/box_word.html" %}  
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

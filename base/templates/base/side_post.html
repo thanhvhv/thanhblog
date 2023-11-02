@@ -1,0 +1,35 @@
+<!-- Posts -->
+<div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Recents Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+      {% for blog in recent_blogs %}
+      <a href="{% url "blog" blog.id%}">
+        <li class="w3-padding-16">
+          <img src="http://127.0.0.1:8000/media/{{blog.image}}" alt="Image" class="w3-left w3-margin-right" style="width:150px">
+          <p class="w3-large">{{blog.title}}</p><br>   
+      </li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+  <hr> 
+
+  <!-- Posts -->
+  <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Popular Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+      {% for blog in popular_blogs %}
+      <a href="{% url "blog" blog.id%}">
+        <li class="w3-padding-16">
+          <img src="http://127.0.0.1:8000/media/{{blog.image}}" alt="Image" class="w3-left w3-margin-right" style="width:150px">
+          <p class="w3-large">{{blog.title}}</p><br>   
+      </li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+  <hr> 

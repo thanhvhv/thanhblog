@@ -1,0 +1,178 @@
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 16px;}
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+</style>
+
+
+
+<!-- The Modal -->
+  
+
+  <div class="container-word"> 
+    {% if word_search is not None %}
+    <!-- Trigger/Open The Modal -->
+      <button id="myBtn">{{word_search}}</button>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h3>Update Word</h3>
+          </div>
+          <div class="modal-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              {{formWord.as_p}}
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+    
+      </div>
+      {% endif %}
+  <hr>
+  <ul class="nav nav-pills vocab-list" style="position: relative;">
+    <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
+    {% for word in words %}
+      <li><a data-toggle="pill" href="#word{{word.id}}">{{word}}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisiciorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuntng elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    {% for word in words %}
+      <div id="word{{word.id}}" class="tab-pane fade">
+        <h3>{{word}}</h3>
+        <span><i class="fa fa-microphone" aria-hidden="true"></i> {{word.spelling}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span>({{word.level}})</span>
+        <hr>
+        <h4>Definiton</h4>
+        <p>{{word.definition|linebreaks}}</p>
+        <hr>
+        <h4>Mean</h4>
+        <p>{{word.mean|linebreaks}}</p>
+        <hr>
+        <h4>Example</h4>
+        <p>{{word.example|linebreaks}}</p>
+        {% if word.synonym is not None %}
+        <hr>
+        <h4>Synonym</h4>
+        <p>{{word.synonym|linebreaks}}</p>
+        {% endif %}
+        {% if word.note is not None %}
+        <hr>
+        <h4>Note</h4>
+        <p>{{word.note|linebreaks}}</p>
+        {% endif %}
+        <form action="#" method="post">
+          {% csrf_token %}
+          <input type="hidden" value="{{word.id}}" name="word_study">
+          <input type="submit" value="Study Word">
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+  
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+  
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  
+  // When the user clicks the button, open the modal 
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+  
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>

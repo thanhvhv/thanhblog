@@ -1,0 +1,74 @@
+<section class="blog-post-area">
+    <!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+    <!-- Grid -->
+    <div class="w3-row">
+    
+    <!-- Blog entries -->
+    <div class="w3-col l8 s12 w3-row-padding">
+      {% for blog in blogs %}
+      <!-- Blog entry -->
+      <div class="w3-half w3-container w3-margin-bottom w3-white">
+        <img src="http://127.0.0.1:8000/media/{{blog.image}}" alt="Picture" style="width:100%; height: 300px; object-fit: cover;">
+        <div class="w3-container">
+          <h3><b><a href="{% url "blog" blog.id %}">{{blog.title}}</a></b></h3>
+          <h4><span class="author-name">{{blog.author}}</span> <span class="w3-opacity">{{blog.created}}</span></h4>
+        </div>
+    
+        <div class="w3-container">
+          <p>{{blog.intro}}</p>
+          <div class="w3-row">
+            <div class="w3-col m8 s12">
+              <p><a href="{% url "blog" blog.id %}" class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></a></p>
+            </div>
+            <div class="w3-col m4 w3-hide-small">
+              <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-tag">0</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      {% endfor %}
+    <!-- END BLOG ENTRIES -->
+    </div>
+    
+    <!-- Introduction menu -->
+    <div class="w3-col l4">
+      
+      <!-- Labels / tags -->
+      <div class="w3-card w3-margin">
+        <div class="w3-container w3-padding">
+          <h4>Categories</h4>
+        </div>
+        <div class="w3-container w3-white">
+        {% for topic in topics %}
+        <a href="{% url "home" %}?search={{topic}}"><button class="topic">{{topic}}</button></a>
+        {% endfor %}
+        </div>
+      </div>
+      
+      {% include "base/side_post.html" %}
+     
+      
+      
+    <!-- END Introduction Menu -->
+    </div>
+    
+    <!-- END GRID -->
+    </div><br>
+    
+    <!-- END w3-content -->
+    </div>
+    <div class="pegination">
+        <div class="nav-links">
+            <span class="page-numbers current">1</span>
+            <a class="page-numbers" href="#">2</a>
+            <a class="page-numbers" href="#">3</a>
+            <a class="page-numbers" href="#">4</a>
+            <a class="page-numbers" href="#">5</a>
+            <a class="page-numbers" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</section>

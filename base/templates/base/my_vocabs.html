@@ -1,0 +1,102 @@
+{% extends "main.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+    <!-- w3-content defines a container for fixed size centered content, 
+    and is wrapped around the whole page content, except for the footer in this example -->
+    <div class="w3-content" style="max-width:1400px">
+    
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-32"> 
+      <h1><b>MY VOCABULARY</b></h1>
+      <a href="{% url "my-vocabulary" %}" class="btn btn-info" role="button">All ({{all_count}})</a>
+      <a href="{% url "my-vocabulary" %}?level=easy" class="btn btn-info" role="button">Easy ({{easy_words.count}})</a>
+      <a href="{% url "my-vocabulary" %}?level=medium" class="btn btn-info" role="button">Medium ({{medium_words.count}})</a>
+      <a href="{% url "my-vocabulary" %}?level=hard" class="btn btn-info" role="button">Hard ({{hard_words.count}})</a>
+    </header>
+    
+    <!-- Grid -->
+    <div class="w3-row">
+    
+    <!-- Blog entries -->
+    <div class="w3-col l8 s12">
+      
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="panel-group" id="accordion">
+          {% for word in words %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="word">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{word.word.id}}">{{word.word}}</a>
+                </h4>
+              </div>
+              <div class="choose-level">
+                <select class="form-select form-select-lg" name="{{word.word.id}}">
+                  {% if word.level == "Easy" %}
+                  <option value="0" selected="selected">Easy</option>
+                  <option value="1">Medium</option>
+                  <option value="2">Hard</option>
+                  {% elif word.level == "Medium" %}
+                  <option value="0">Easy</option>
+                  <option value="1" selected="selected">Medium</option>
+                  <option value="2">Hard</option>
+                  {% else %}
+                  <option value="0">Easy</option>
+                  <option value="1" >Medium</option>
+                  <option value="2" selected="selected">Hard</option>
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+            <div id="collapse{{word.word.id}}" class="panel-collapse collapse tab-pane">
+              <span><i class="fa fa-microphone" aria-hidden="true"></i> {{word.word.spelling}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span>({{word.word.level}})</span>
+              <hr>
+              <h4>Definiton</h4>
+              <p>{{word.word.definition|linebreaks}}</p>
+              <hr>
+              <h4>Mean</h4>
+              <p>{{word.word.mean|linebreaks}}</p>
+              <hr>
+              <h4>Example</h4>
+              <p>{{word.word.example|linebreaks}}</p>
+              {% if word.word.synonym is not None %}
+              <hr>
+              <h4>Synonym</h4>
+              <p>{{word.word.synonym|linebreaks}}</p>
+              {% endif %}
+              {% if word.word.note is not None %}
+              <hr>
+              <h4>Note</h4>
+              <p>{{word.word.note|linebreaks}}</p>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+  
+        </div>
+        <input type="submit" value="Complete"> 
+      </form>
+    <!-- END BLOG ENTRIES -->
+    </div>
+    
+    <!-- Introduction menu -->
+    <div class="w3-col l4">
+      {% include "base/side_post.html" %}
+      
+    <!-- END Introduction Menu -->
+    </div>
+    
+    <!-- END GRID -->
+    </div><br>
+    
+    <!-- END w3-content -->
+    </div>
+
+
+{% endblock content %}

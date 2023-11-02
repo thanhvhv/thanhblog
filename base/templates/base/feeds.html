@@ -1,0 +1,19 @@
+{% for topic in topics %}
+  <div>
+    <h2>{{topic}}</h2>
+    {% for blog in blogs %}
+      {% if blog.topic.id == topic.id %}
+          <div>
+            <a href="">
+              <img src="http://127.0.0.1:8000/media/{{blog.image}}" alt="" style="width:200px;height:200px;">
+              <h3>{{blog.title}}</h3>
+            </a>
+            <a href="{% url "authorPage" blog.author.id %} "><span>{{blog.author}}</span></a>
+            <small>({{blog.created|timesince}} ago)</small>
+            <p>{{blog.intro}}</p>
+          </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <hr>
+{% endfor %}
